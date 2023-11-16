@@ -1,6 +1,14 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/muhammadputraage/digibook-api/config"
+)
+
+func init() {
+	config.LoadEnv()
+	config.ConnectDB()
+}
 
 func main() {
 	r := gin.Default()
