@@ -34,7 +34,7 @@ func (r *repository) FindAll() (*[]Entity, error) {
 func (r *repository) FindById(bookId string) (*Entity, error) {
 	var book Entity
 
-	err := r.db.First(&book, bookId).Error
+	err := r.db.First(&book, "id = ?", bookId).Error
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (r *repository) Update(book Entity) (*Entity, error) {
 }
 
 func (r *repository) Delete(bookId string) error {
-	err := r.db.Delete(&Entity{}, bookId).Error
+	err := r.db.Delete(&Entity{}, "id = ?", bookId).Error
 	if err != nil {
 		return err
 	}

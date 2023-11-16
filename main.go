@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/muhammadputraage/digibook-api/book"
 	"github.com/muhammadputraage/digibook-api/config"
 )
 
@@ -11,11 +12,13 @@ func init() {
 }
 
 func main() {
+	bookRepository := book.NewRepository(config.DB)
+	bookService := book.NewService(bookRepository)
+
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Welcome to digibook API",
-		})
-	})
+
+	apiV1 := r.Group("/api/v1")
+	book.InitRouter(apiV1, bookService)
+
 	r.Run()
 }
