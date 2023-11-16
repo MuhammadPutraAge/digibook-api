@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/muhammadputraage/digibook-api/book"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -31,5 +32,10 @@ func ConnectDB() {
 
 	if err != nil {
 		panic("Failed to connect database!")
+	}
+
+	err = DB.AutoMigrate(&book.Entity{})
+	if err != nil {
+		panic("Failed to migrate database")
 	}
 }
